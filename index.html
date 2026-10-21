@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="PulseMetrics — a fictional SaaS analytics dashboard portfolio project.">
+  <meta name="theme-color" content="#101820">
+
+  <title>PulseMetrics — Analytics Workspace</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- MOBILE OVERLAY -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="PulseMetrics home">
+        <span class="brand-mark">P</span>
+        <span>pulse<span class="brand-light">metrics</span></span>
+      </a>
+
+      <div class="workspace-switcher">
+        <div class="workspace-avatar">A</div>
+        <div class="workspace-copy">
+          <strong>Acme Studio</strong>
+          <span>Free workspace</span>
+        </div>
+        <button class="icon-button workspace-menu" id="workspaceMenu"
+          aria-label="Workspace options">⌄</button>
+      </div>
+
+      <div class="nav-section">
+        <p class="nav-label">WORKSPACE</p>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#overview" class="nav-link active" data-page="overview">
+            <span class="nav-icon">◫</span>
+            <span>Overview</span>
+          </a>
+
+          <a href="#analytics" class="nav-link" data-page="analytics">
+            <span class="nav-icon">▥</span>
+            <span>Analytics</span>
+          </a>
+
+          <a href="#audience" class="nav-link" data-page="audience">
+            <span class="nav-icon">♙</span>
+            <span>Audience</span>
+          </a>
+
+          <a href="#campaigns" class="nav-link" data-page="campaigns">
+            <span class="nav-icon">◈</span>
+            <span>Campaigns</span>
+          </a>
+
+          <a href="#reports" class="nav-link" data-page="reports">
+            <span class="nav-icon">▤</span>
+            <span>Reports</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="nav-section">
+        <p class="nav-label">MANAGEMENT</p>
+
+        <nav class="main-nav" aria-label="Management navigation">
+          <a href="#integrations" class="nav-link" data-page="integrations">
+            <span class="nav-icon">⌘</span>
+            <span>Integrations</span>
+            <span class="nav-badge">3</span>
+          </a>
+
+          <a href="#settings" class="nav-link" data-page="settings">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="upgrade-card">
+          <div class="upgrade-icon">✦</div>
+          <strong>Unlock more insights</strong>
+          <p>Explore advanced reports and deeper analytics.</p>
+          <button class="upgrade-button" id="upgradeButton">
+            Explore plans <span>→</span>
+          </button>
+        </div>
+
+        <div class="profile-row">
+          <div class="profile-avatar">KG</div>
+          <div class="profile-copy">
+            <strong>Keith Gotohori</strong>
+            <span>Administrator</span>
+          </div>
+          <button class="icon-button" id="profileMenu"
+            aria-label="Profile options">•••</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="mainContent">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button mobile-menu-button" id="mobileMenuButton"
+            aria-label="Open navigation" aria-expanded="false"
+            aria-controls="sidebar">☰</button>
+
+          <div class="breadcrumbs">
+            <span>Workspace</span>
+            <span class="breadcrumb-divider">/</span>
+            <strong id="breadcrumbCurrent">Overview</strong>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="globalSearch"
+              placeholder="Search anything..." aria-label="Search dashboard">
+            <kbd>⌘ K</kbd>
+          </label>
+
+          <div class="notification-wrap">
+            <button class="icon-button notification-button"
+              id="notificationButton" aria-label="Notifications"
+              aria-expanded="false">♧
+              <span class="notification-dot"></span>
+            </button>
+
+            <div class="popover notification-popover" id="notificationPopover" hidden>
+              <div class="popover-heading">
+                <strong>Notifications</strong>
+                <button class="text-button" id="markNotificationsRead">
+                  Mark all read
+                </button>
+              </div>
+
+              <div id="notificationList">
+                <div class="notification-item">
+                  <span class="notification-symbol blue-symbol">↗</span>
+                  <div>
+                    <strong>Analytics workspace ready</strong>
+                    <p>Your demo dashboard is ready to explore.</p>
+                    <small>Just now</small>
+                  </div>
+                </div>
+
+                <div class="notification-item">
+                  <span class="notification-symbol green-symbol">✓</span>
+                  <div>
+                    <strong>Sample data loaded</strong>
+                    <p>Explore fictional traffic and campaign data.</p>
+                    <small>Today</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="help-button" id="helpButton">Help <span>↗</span></button>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <div class="page-container">
+
+        <section class="page-heading" id="overview">
+          <div>
+            <div class="eyebrow">
+              <span class="status-dot"></span>
+              DEMO ENVIRONMENT
+            </div>
+            <h1 id="pageTitle">Good afternoon, Keith <span>✳</span></h1>
+            <p id="pageDescription">
+              Here's what's happening with your workspace today.
+            </p>
+          </div>
+
+          <div class="heading-actions">
+            <label class="date-control">
+              <span aria-hidden="true">▦</span>
+              <select id="dateRange" aria-label="Analytics date range">
+                <option value="7">Last 7 days</option>
+                <option value="14">Last 14 days</option>
+                <option value="30" selected>Last 30 days</option>
+                <option value="90">Last 90 days</option>
+              </select>
+            </label>
+
+            <button class="primary-button" id="exportButton">
+              <span>↓</span> Export report
+            </button>
+          </div>
+        </section>
+
+        <div class="demo-notice">
+          <span class="notice-icon">i</span>
+          <span>
+            <strong>Portfolio demonstration:</strong>
+            All metrics and activity in this dashboard are fictional sample data.
+          </span>
+          <button class="icon-button notice-dismiss" id="dismissNotice"
+            aria-label="Dismiss demo notice">×</button>
+        </div>
+
+        <!-- KPI CARDS -->
+        <section class="kpi-grid" aria-label="Key performance indicators">
+
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">Total revenue</span>
+              <span class="kpi-icon revenue-icon">↗</span>
+            </div>
+            <div class="kpi-value" id="revenueValue">$48,294</div>
+            <div class="kpi-footer">
+              <span class="trend positive" id="revenueTrend">↗ 12.8%</span>
+              <span class="comparison">vs. previous period</span>
+            </div>
+            <div class="mini-bar" aria-hidden="true">
+              <span style="height:35%"></span>
+              <span style="height:48%"></span>
+              <span style="height:39%"></span>
+              <span style="height:63%"></span>
+              <span style="height:52%"></span>
+              <span style="height:74%"></span>
+              <span style="height:66%"></span>
+              <span style="height:88%"></span>
+              <span style="height:78%"></span>
+              <span style="height:100%"></span>
+            </div>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">Total visitors</span>
+              <span class="kpi-icon visitors-icon">◎</span>
+            </div>
+            <div class="kpi-value" id="visitorsValue">124,582</div>
+            <div class="kpi-footer">
+              <span class="trend positive" id="visitorsTrend">↗ 8.4%</span>
+              <span class="comparison">vs. previous period</span>
+            </div>
+            <div class="mini-bar blue-bars" aria-hidden="true">
+              <span style="height:48%"></span>
+              <span style="height:35%"></span>
+              <span style="height:56%"></span>
+              <span style="height:45%"></span>
+              <span style="height:72%"></span>
+              <span style="height:62%"></span>
+              <span style="height:80%"></span>
+              <span style="height:67%"></span>
+              <span style="height:90%"></span>
+              <span style="height:100%"></span>
+            </div>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">Conversion rate</span>
+              <span class="kpi-icon conversion-icon">◉</span>
+            </div>
+            <div class="kpi-value" id="conversionValue">3.62%</div>
+            <div class="kpi-footer">
+              <span class="trend positive" id="conversionTrend">↗ 0.6%</span>
+              <span class="comparison">vs. previous period</span>
+            </div>
+            <div class="mini-bar purple-bars" aria-hidden="true">
+              <span style="height:42%"></span>
+              <span style="height:52%"></span>
+              <span style="height:44%"></span>
+              <span style="height:61%"></span>
+              <span style="height:57%"></span>
+              <span style="height:73%"></span>
+              <span style="height:68%"></span>
+              <span style="height:84%"></span>
+              <span style="height:79%"></span>
+              <span style="height:100%"></span>
+            </div>
+          </article>
+
+          <article class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-label">Active users</span>
+              <span class="kpi-icon users-icon">♙</span>
+            </div>
+            <div class="kpi-value" id="activeUsersValue">8,549</div>
+            <div class="kpi-footer">
+              <span class="trend negative" id="activeUsersTrend">↘ 2.1%</span>
+              <span class="comparison">vs. previous period</span>
+            </div>
+            <div class="mini-bar orange-bars" aria-hidden="true">
+              <span style="height:66%"></span>
+              <span style="height:54%"></span>
+              <span style="height:73%"></span>
+              <span style="height:60%"></span>
+              <span style="height:78%"></span>
+              <span style="height:69%"></span>
+              <span style="height:85%"></span>
+              <span style="height:75%"></span>
+              <span style="height:92%"></span>
+              <span style="height:100%"></span>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- CHARTS -->
+        <section class="charts-grid" aria-label="Analytics charts">
+
+          <article class="panel revenue-panel" id="analytics">
+            <div class="panel-header">
+              <div>
+                <h2>Performance overview</h2>
+                <p>Track revenue and traffic over time</p>
+              </div>
+
+              <label class="chart-select">
+                <span class="sr-only">Primary chart metric</span>
+                <select id="metricSelect">
+                  <option value="revenue">Revenue</option>
+                  <option value="visitors">Visitors</option>
+                  <option value="conversions">Conversions</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="chart-summary">
+              <strong id="chartMainValue">$48,294</strong>
+              <span class="trend positive" id="chartMainTrend">↗ 12.8%</span>
+              <span class="comparison">during selected period</span>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="performanceChart"
+                role="img"
+                aria-label="Line chart showing fictional performance data over time">
+                Performance chart of fictional sample data.
+              </canvas>
+            </div>
+
+            <div class="chart-footer">
+              <span><span class="legend-dot primary-dot"></span>
+                <span id="primaryLegend">Revenue</span></span>
+              <span class="chart-footer-note">Demo data · Updates with filters</span>
+            </div>
+          </article>
+
+          <article class="panel sources-panel" id="audience">
+            <div class="panel-header">
+              <div>
+                <h2>Traffic sources</h2>
+                <p>Where your visitors come from</p>
+              </div>
+              <button class="icon-button panel-menu" data-menu="sources"
+                aria-label="Traffic source options">•••</button>
+            </div>
+
+            <div class="donut-container">
+              <canvas id="sourcesChart"
+                role="img"
+                aria-label="Doughnut chart of fictional traffic sources">
+                Traffic sources chart of fictional sample data.
+              </canvas>
+              <div class="donut-center">
+                <strong id="sourceTotal">124.6k</strong>
+                <span>Visitors</span>
+              </div>
+            </div>
+
+            <div class="source-legend" id="sourceLegend">
+              <div class="source-row">
+                <span class="source-name">
+                  <span class="legend-dot source-blue"></span> Organic search
+                </span>
+                <strong>42%</strong>
+              </div>
+              <div class="source-row">
+                <span class="source-name">
+                  <span class="legend-dot source-purple"></span> Direct
+                </span>
+                <strong>28%</strong>
+              </div>
+              <div class="source-row">
+                <span class="source-name">
+                  <span class="legend-dot source-cyan"></span> Social media
+                </span>
+                <strong>18%</strong>
+              </div>
+              <div class="source-row">
+                <span class="source-name">
+                  <span class="legend-dot source-orange"></span> Referral
+                </span>
+                <strong>12%</strong>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- CAMPAIGN TABLE -->
+        <section class="panel campaigns-panel" id="campaigns">
+          <div class="panel-header campaigns-heading">
+            <div>
+              <h2>Campaign performance</h2>
+              <p>Review your top-performing marketing channels</p>
+            </div>
+
+            <div class="table-actions">
+              <label class="table-search">
+                <span aria-hidden="true">⌕</span>
+                <input type="search" id="tableSearch"
+                  placeholder="Search campaigns..."
+                  aria-label="Search campaigns">
+              </label>
+
+              <label class="status-filter">
+                <span class="sr-only">Filter campaigns by status</span>
+                <select id="statusFilter">
+                  <option value="all">All statuses</option>
+                  <option value="Active">Active</option>
+                  <option value="Paused">Paused</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">Campaign</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Visitors</th>
+                  <th scope="col">Conversions</th>
+                  <th scope="col">Conv. rate</th>
+                  <th scope="col">Revenue</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody id="campaignTableBody">
+                <tr>
+                  <td colspan="7" class="table-message">
+                    <span class="loading-spinner"></span>
+                    Loading sample campaigns...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-footer">
+            <span id="tableCount">Showing campaigns</span>
+            <div class="pagination">
+              <button class="pagination-button" id="prevPage"
+                aria-label="Previous page" disabled>←</button>
+              <span id="pageIndicator">1 / 1</span>
+              <button class="pagination-button" id="nextPage"
+                aria-label="Next page" disabled>→</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOTTOM INSIGHTS -->
+        <section class="bottom-grid" id="reports">
+
+          <article class="panel insights-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Quick insights</h2>
+                <p>Highlights from your sample dataset</p>
+              </div>
+              <span class="insight-sparkle">✳</span>
+            </div>
+
+            <div class="insight-item">
+              <span class="insight-number">01</span>
+              <div>
+                <strong>Search is your leading channel</strong>
+                <p>Organic search contributes the largest share of demo traffic.</p>
+              </div>
+            </div>
+
+            <div class="insight-item">
+              <span class="insight-number">02</span>
+              <div>
+                <strong>Compare conversion efficiency</strong>
+                <p>Use campaign conversion rates to compare channel performance.</p>
+              </div>
+            </div>
+
+            <div class="insight-item">
+              <span class="insight-number">03</span>
+              <div>
+                <strong>Explore different time ranges</strong>
+                <p>Change the date filter to see the visualization update.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel activity-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Recent activity</h2>
+                <p>Latest demo workspace events</p>
+              </div>
+              <button class="text-button" id="viewAllActivity">View all</button>
+            </div>
+
+            <div class="activity-list" id="activityList">
+              <div class="activity-item">
+                <span class="activity-icon activity-blue">↗</span>
+                <div class="activity-copy">
+                  <strong>Performance report generated</strong>
+                  <p>A sample report is ready for review.</p>
+                  <span>Today · 10:42 AM</span>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <span class="activity-icon activity-green">✓</span>
+                <div class="activity-copy">
+                  <strong>Campaign data synchronized</strong>
+                  <p>Fictional campaign records refreshed.</p>
+                  <span>Today · 09:18 AM</span>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <span class="activity-icon activity-purple">⚙</span>
+                <div class="activity-copy">
+                  <strong>Workspace initialized</strong>
+                  <p>PulseMetrics demo environment initialized.</p>
+                  <span>Today · 08:30 AM</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+          <span>© 2026 PulseMetrics. Portfolio demo project.</span>
+          <span>Built with precision <span class="footer-heart">✳</span></span>
+        </footer>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- TOAST FEEDBACK -->
+  <div class="toast-container" id="toastContainer"
+    role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- GENERAL MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <section class="modal" role="dialog" aria-modal="true"
+      aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 id="modalTitle">Workspace</h2>
+        <button class="icon-button" id="modalClose"
+          aria-label="Close dialog">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter">
+        <button class="secondary-button" id="modalCancel">Close</button>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>
+
