@@ -89,4 +89,4 @@ const campaignData = [
     revenue: 16820,
     avatar: "O",
     color: "green", 
-    ]
+    ];
