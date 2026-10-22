@@ -90,7 +90,7 @@ const campaignData = [
     avatar: "O",
     color: "green", 
   }, 
-  
+  ];
 // ============================================================
 // PULSEMETRICS — CAMPAIGN TABLE FUNCTIONALITY
 // Add this BELOW the existing campaignData array.
@@ -294,5 +294,5 @@ renderCampaignTable();
 
 console.log(
   `PulseMetrics: ${campaignData.length} demo campaigns loaded.`
-) ];
+);
 
