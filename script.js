@@ -89,8 +89,8 @@ const campaignData = [
     revenue: 16820,
     avatar: "O",
     color: "green", 
-  }, 
-  ];
+  }, ];
+  
 // ============================================================
 // PULSEMETRICS — CAMPAIGN TABLE FUNCTIONALITY
 // Add this BELOW the existing campaignData array.
