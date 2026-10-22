@@ -88,4 +88,5 @@ const campaignData = [
     conversions: 1846,
     revenue: 16820,
     avatar: "O",
-    color: "green
+    color: "green", 
+  }
