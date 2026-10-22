@@ -294,5 +294,5 @@ renderCampaignTable();
 
 console.log(
   `PulseMetrics: ${campaignData.length} demo campaigns loaded.`
-);
+) ];
 
